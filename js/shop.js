@@ -1,5 +1,5 @@
 // If you have time, you can move this variable "products" to a json or js file and load the data in this js. It will look more professional
-var products = [
+const products = [
    {
         id: 1,
         name: 'cooking oil',
@@ -74,12 +74,22 @@ var total = 0;
 // Exercise 1
 function buy(id) {
     // 1. Loop for to the array products to get the item to add to cart
-    // 2. Add found product to the cartList array
-}
+    
+  for(let i =0; i < products.length; i ++) {
+    if(id===products[i].id){
+        // 2. Add found product to the cartList array
+        cartList.push(products[i])
+        
+    }
+    
+  }
+  console.log("New cart",cartList)
+  }
+
 
 // Exercise 2
 function cleanCart() {
-
+ 
 }
 
 // Exercise 3
