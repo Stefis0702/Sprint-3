@@ -89,7 +89,9 @@ function buy(id) {
 
 // Exercise 2
 function cleanCart() {
- 
+    cartList.splice(0),
+    
+  console.log("splice",cartList)
 }
 
 // Exercise 3
