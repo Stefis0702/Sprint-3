@@ -105,8 +105,21 @@ function calculateTotal() {
 
 // Exercise 4
 function generateCart() {
-    // Using the "cartlist" array that contains all the items in the shopping cart, 
+    // Using the "cartlist" array that contains all the items in the shopping cart,
+    for(let i =0; i<cartList.length; i ++){
+        cartList[i].quantity=1;
+    }
+    console.log("act cartlist",cartList);
     // generate the "cart" array that does not contain repeated items, instead each item of this array "cart" shows the quantity of product.
+    for(let i =0; i<cartList.length; i ++){
+        const artexist= cart.findIndex(index=>index.id===cartList[i].id);
+        if(artexist !== -1){
+            cart[artexist].quantity+=1;
+        }else{
+            cart.push(cartList[i]);
+        }
+    }
+    console.log("cart",cart);
 }
 
 // Exercise 5
@@ -138,4 +151,5 @@ function removeFromCart(id) {
 function open_modal(){
 	console.log("Open Modal");
 	printCart();
+    
 }
