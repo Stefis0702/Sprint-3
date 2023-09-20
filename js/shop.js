@@ -1,7 +1,7 @@
 // If you have time, you can move this variable "products" to a json or js file and load the data in this js. It will look more professional
 const products = [{
         id: 1,
-        name: 'cooking oil',
+        name: 'Cooking oil',
         price: 10.5,
         type: 'grocery',
         offer: {
@@ -70,6 +70,8 @@ var cart = [];
 
 var total = 0;
 
+
+
 // Exercise 1
 function buy(id) {
     // 1. Loop for to the array products to get the item to add to cart
@@ -88,7 +90,12 @@ function buy(id) {
 
 // Exercise 2
 function cleanCart() {
-    cartList.splice(0),
+    cartList.splice(0);
+     tableBody=document.querySelector("tbody#cart_list");
+     tableBody.innerHTML="";
+     total=document.querySelector("span#total_price");
+     total.innerHTML="";
+
 
         console.log("splice", cartList)
 }
@@ -96,8 +103,16 @@ function cleanCart() {
 // Exercise 3
 function calculateTotal() {
     // Calculate total price of the cart using the "cartList" array
-    for (let i = 0; i < cartList.length; i++) {
-        total += cartList[i].price;
+    for (let i = 0; i < cart.length; i++) {
+        if (cart[i].subtotalWithDiscount != undefined) {
+            total += cart[i].subtotalWithDiscount;
+
+       } else {
+        total += cart[i].subtotal;
+       }
+        
+        
+        
     }
     console.log("Total carrito", total.toFixed(2))
 }
@@ -105,34 +120,34 @@ function calculateTotal() {
 // Exercise 4
 function generateCart() {
     // Using the "cartlist" array that contains all the items in the shopping cart,
-  
-         // generate the "cart" array that does not contain repeated items, instead each item of this array "cart" shows the quantity of product.
-        for (let i = 0; i < cartList.length; i++) {
-          const artexist = cart.findIndex(item => item.id == cartList[i].id);
-            if (artexist == -1) {
-                cart.push(cartList[i]);
-                cart[i].quantity = 1;
-                
-                
-            } else {
-                cart[artexist].quantity ++;
-            }
-        }
-    
-    console.log("cart", cart);
-   // let itemEncont;
 
-    // cartList.forEach((item)=>{
-    //     itemEncont=cart.find((product)=>product.id===item.id);
-    //     if(itemEncont==undefined){
-    //         item.quantity=1;
-    //         cart.push(item);
-    //     }else{
-    //         itemEncont.quantity++;
+    // generate the "cart" array that does not contain repeated items, instead each item of this array "cart" shows the quantity of product.
+    // for (let i = 0; i < cartList.length; i++) {
+    //   const artexist = cart.findIndex(item => item.id == cartList[i].id);
+    //     if (artexist == -1) {
+    //         cart.push(cartList[i]);
+    //         cart[i].quantity = 1;
+
+
+    //     } else {
+    //         cart[artexist].quantity ++;
     //     }
+    // }
 
-    // })
-    // console.log("nCart", cart);
+    // console.log("cart", cart);
+    let itemEncont;
+
+    cartList.forEach((item) => {
+        itemEncont = cart.find((product) => product.id === item.id);
+        if (itemEncont == undefined) {
+            item.quantity = 1;
+            cart.push(item);
+        } else {
+            itemEncont.quantity++;
+        }
+
+    })
+    console.log("nCart", cart);
 }
 
 // Exercise 5
@@ -171,8 +186,52 @@ function applyPromotionsCart() {
 
 // Exercise 6
 function printCart() {
-    // Fill the shopping cart modal manipulating the shopping cart dom
+    generateCart();
+    applyPromotionsCart();
+    calculateTotal();
+    printItems()
+    printTotal()
 }
+
+
+function printItems() {
+    let finalTotal;
+    // Fill the shopping cart modal manipulating the shopping cart dom
+    let tableBody = document.querySelector("tbody#cart_list");
+   // console.log("table",tableBody);
+    let tableRow;
+
+    tableBody.innerHTML = "";
+
+    cart.forEach((item) => {
+        tableRow = document.createElement("tr");
+
+        if (item.subtotalWithDiscount != undefined) {
+             finalTotal = item.subtotalWithDiscount
+
+        } else {
+            finalTotal = item.subtotal
+        }
+
+
+        tableRow.innerHTML = `
+                <th scope="row">${item.name}</th>
+                <td>$${item.price}</td>
+                <td>${item.quantity}</td>
+                <td>$${finalTotal}</td>
+        `;
+
+        tableBody.appendChild(tableRow);
+    })
+
+}
+function printTotal() {
+    document.getElementById("total_price").innerHTML = total;
+}
+
+
+
+
 
 
 // ** Nivell II **
@@ -193,6 +252,5 @@ function removeFromCart(id) {
 function open_modal() {
     console.log("Open Modal");
     printCart();
-    generateCart();
-    applyPromotionsCart();
+
 }
