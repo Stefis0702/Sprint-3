@@ -90,14 +90,17 @@ function buy(id) {
 
 // Exercise 2
 function cleanCart() {
-    cartList.splice(0);
-     tableBody=document.querySelector("tbody#cart_list");
-     tableBody.innerHTML="";
-     total=document.querySelector("span#total_price");
-     total.innerHTML="";
+    
+     cartList.splice(0);
+     cart.splice(0);
+     total= 0;
+     document.getElementById("count_product").innerHTML=cartList.length;
+     document.getElementById("cart_list").innerHTML="Carrito Vacio";
+     document.getElementById("total_price").innerHTML="0";
 
 
-        console.log("splice", cartList)
+        console.log("splice", cartList);
+    
 }
 
 // Exercise 3
@@ -114,7 +117,7 @@ function calculateTotal() {
         
         
     }
-    console.log("Total carrito", total.toFixed(2))
+   // console.log("Total carrito", total.toFixed(2))
 }
 
 // Exercise 4
@@ -135,6 +138,7 @@ function generateCart() {
     // }
 
     // console.log("cart", cart);
+    
     let itemEncont;
 
     cartList.forEach((item) => {
