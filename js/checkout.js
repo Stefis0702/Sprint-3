@@ -1,6 +1,7 @@
 
 // Exercise 7
-function validate() {
+function validate(e) {
+	e.preventDefault();
 	// var error = 0;
 	// // Get the input fields
 	// var fName = document.getElementById("fName");
@@ -18,7 +19,7 @@ function validate() {
 	// if(fEmail.value == ""){
 	// 	error++;
 	// }
-	let error=0
+	let error=0;
 	 
 	 if(error>0){
 	e.preventDefault();
