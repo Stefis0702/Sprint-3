@@ -79,7 +79,8 @@ function buy(id) {
     for (let i = 0; i < products.length; i++) {
         if (id === products[i].id) {
             // 2. Add found product to the cartList array
-            cartList.push(products[i])
+            let newProduct= {...products[i]};
+            cartList.push(newProduct);
 
         }
 
